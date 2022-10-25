@@ -37,7 +37,7 @@ public class DataWindow extends JFrame {
 	
 	
 	public DataWindow(String identity) {
-		setResizable(false);
+		this.setResizable(false);
 		this.identity = identity.equals("Teacher")?"教师":"学生";
 		init();
 	}
@@ -126,6 +126,11 @@ public class DataWindow extends JFrame {
 		this.setVisible(true);
 	}
 	
+	public void back() {
+		LoginWindow loginwin = new LoginWindow();
+		this.dispose();
+	}
+	
 	//内部类  事件监听器
 	private class MyActionListener implements ActionListener{
 
@@ -149,6 +154,7 @@ public class DataWindow extends JFrame {
 			//返回按钮被点击
 			}else if(COMMAND_BACK.equals(command)) {
 				System.out.println("返回");
+				back();
 			}
 			
 		}

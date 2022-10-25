@@ -35,6 +35,7 @@ public class LoginWindow extends JFrame {
 	
 	String identity;
 	
+	final static String TITLE	= "学生管理系统 202160930222";
 	final String COMMAND_LOGIN 	= "Login";
 	final String COMMAND_RESET 	= "Reset";
 	final String COMMAND_EXIT 	= "Exit";
@@ -44,15 +45,16 @@ public class LoginWindow extends JFrame {
 	final String STUDENT		= "Student";
 	
 	//构造方法
-	LoginWindow(String title){
-		super(title);
-		setResizable(false);
+	LoginWindow(){
+		super(TITLE);
+		
+		this.setResizable(false);
 		init();
 	}
 	
 	//组件初始化
 	public void init() {
-		this.setBounds(300, 300, 480, 400);
+		this.setBounds(500, 250, 480, 400);
 		this.setDefaultCloseOperation(LoginWindow.EXIT_ON_CLOSE);
 		
 		

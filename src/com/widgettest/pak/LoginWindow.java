@@ -155,6 +155,11 @@ public class LoginWindow extends JFrame {
 		sel_student.setSelected(true);
 	}
 	
+	//退出
+	public void exit() {
+		this.dispose();
+	}
+	
 	//内部类  事件监听器
 	private class MyActionListener implements ActionListener{
 
@@ -185,6 +190,7 @@ public class LoginWindow extends JFrame {
 			//退出按钮被点击
 			}else if(COMMAND_EXIT.equals(command)) {
 				System.out.println("退出");
+				exit();
 			}
 			
 		}

@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JTable;
 
 public class DataWindow extends JFrame {
 	
@@ -25,11 +26,14 @@ public class DataWindow extends JFrame {
 	JButton btn_find;	//查
 	JButton btn_back;	//查
 	
+	private JTable table;
+	
 	final String COMMAND_ADD 	= "Add";
 	final String COMMAND_DEL 	= "Del";
 	final String COMMAND_MOD 	= "Mod";
 	final String COMMAND_FIND 	= "Find";
 	final String COMMAND_BACK	= "Back";
+	
 	
 	
 	public DataWindow(String identity) {
@@ -52,23 +56,23 @@ public class DataWindow extends JFrame {
 		//JButton
 		btn_add = new JButton("增加");
 		btn_add.setFont(new Font("宋体", Font.PLAIN, 20));
-		btn_add.setBounds(64, 500,102, 30);
+		btn_add.setBounds(838, 84,102, 44);
 		btn_add.setActionCommand(COMMAND_ADD);
 		btn_del = new JButton("删除");
 		btn_del.setFont(new Font("宋体", Font.PLAIN, 20));
-		btn_del.setBounds(264, 500,102, 30);
+		btn_del.setBounds(838, 193,102, 44);
 		btn_del.setActionCommand(COMMAND_DEL);
 		btn_mod = new JButton("修改");
 		btn_mod.setFont(new Font("宋体", Font.PLAIN, 20));
-		btn_mod.setBounds(464, 500,102, 30);
+		btn_mod.setBounds(838, 301,102, 44);
 		btn_mod.setActionCommand(COMMAND_MOD);
 		btn_find = new JButton("查询");
 		btn_find.setFont(new Font("宋体", Font.PLAIN, 20));
-		btn_find.setBounds(664, 500,102, 30);
+		btn_find.setBounds(838, 423,102, 44);
 		btn_find.setActionCommand(COMMAND_FIND);
 		btn_back = new JButton("返回");
 		btn_back.setFont(new Font("宋体", Font.PLAIN, 20));
-		btn_back.setBounds(764, 500,102, 30);
+		btn_back.setBounds(838, 553,102, 44);
 		btn_back.setActionCommand(COMMAND_BACK);
 		
 		//把按钮注册到事件监听器
@@ -113,6 +117,10 @@ public class DataWindow extends JFrame {
 		panel.add(btn_find);
 		panel.add(btn_back);
 		
+		table = new JTable();
+		table.setBounds(10, 10, 785, 643);
+		panel.add(table);
+		
 		
 		//主窗体可视化
 		this.setVisible(true);
@@ -139,7 +147,7 @@ public class DataWindow extends JFrame {
 			}else if(COMMAND_FIND.equals(command)) {
 				System.out.println("查询");
 			//返回按钮被点击
-			}else if(COMMAND_FIND.equals(command)) {
+			}else if(COMMAND_BACK.equals(command)) {
 				System.out.println("返回");
 			}
 			

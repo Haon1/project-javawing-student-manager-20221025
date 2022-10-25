@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import java.awt.Font;
@@ -26,8 +27,8 @@ public class LoginWindow extends JFrame {
 	JButton btn_reset;
 	JButton btn_exit;
 	
-	JTextField text_usr;
-	JTextField text_pwd;
+	JTextField 		text_usr;
+	JPasswordField 	text_pwd;
 	
 	JRadioButton sel_teacher;
 	JRadioButton sel_student;
@@ -39,6 +40,7 @@ public class LoginWindow extends JFrame {
 	final String COMMAND_LOGIN 	= "Login";
 	final String COMMAND_RESET 	= "Reset";
 	final String COMMAND_EXIT 	= "Exit";
+	//final String COMMAND_ENTER 	= "Enter";
 	final String USERNAME 		= "admin";
 	final String PASSWORD		= "admin";
 	final String TEACHER		= "Teacher";
@@ -77,7 +79,7 @@ public class LoginWindow extends JFrame {
 		text_usr = new JTextField(11);
 		text_usr.setFont(new Font("宋体", Font.PLAIN, 20));
 		text_usr.setBounds(160, 50, 181, 30);
-		text_pwd = new JTextField(16);
+		text_pwd = new JPasswordField(16);
 		text_pwd.setFont(new Font("宋体", Font.PLAIN, 20));
 		text_pwd.setBounds(160, 116, 181, 30);
 		
@@ -116,7 +118,7 @@ public class LoginWindow extends JFrame {
         btnGroup.add(sel_student);
 
 		
-		//添加组件到Pane中
+		//添加组件到Panel中
 		panel.add(lb_usr);
 		panel.add(lb_pwd);
 		panel.add(lb_mode);
@@ -135,9 +137,10 @@ public class LoginWindow extends JFrame {
 	//检查账号密码是否正确
 	public boolean checkAccount() {
 		String usr = text_usr.getText();
-		String pwd = text_pwd.getText();
+		char []pwd = text_pwd.getPassword();
+		String password = String.valueOf(pwd);
 		//账号密码均正确
-		if(USERNAME.equals(usr)&&PASSWORD.equals(pwd)) {
+		if(USERNAME.equals(usr)&&PASSWORD.equals(password)) {
 			return true;
 		}else {
 			JOptionPane.showMessageDialog(this,"账号或密码错误","提示",JOptionPane.WARNING_MESSAGE);

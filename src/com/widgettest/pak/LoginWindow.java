@@ -2,6 +2,7 @@ package com.widgettest.pak;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,14 +51,21 @@ public class LoginWindow extends JFrame {
 	//构造方法
 	LoginWindow(){
 		super(TITLE);
-		
 		this.setResizable(false);
 		init();
 	}
 	
 	//组件初始化
 	public void init() {
-		this.setBounds(500, 250, 480, 400);
+		this.setSize(480, 400);
+		int windowWidth = this.getWidth(); //获得窗口宽
+		int windowHeight = this.getHeight(); //获得窗口高
+		Toolkit kit = Toolkit.getDefaultToolkit(); //定义工具包
+		Dimension screenSize = kit.getScreenSize(); //获取屏幕的尺寸
+		int screenWidth = screenSize.width; //获取屏幕的宽
+		int screenHeight = screenSize.height; //获取屏幕的高
+		this.setLocation((screenWidth - windowWidth)/2, (screenHeight - windowHeight)/2);//设置窗口居中显示
+		
 		this.setDefaultCloseOperation(LoginWindow.EXIT_ON_CLOSE);
 		
 		

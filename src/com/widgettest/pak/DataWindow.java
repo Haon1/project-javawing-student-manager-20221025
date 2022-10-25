@@ -4,10 +4,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -43,9 +46,18 @@ public class DataWindow extends JFrame {
 	}
 	
 	public void init() {
+		
 		String ti = "学生数据管理页,您的身份是：";
-		this.setTitle(ti+identity);
-		this.setBounds(250, 85, 1000, 700);
+		this.setTitle(ti + identity);
+		this.setSize(1000, 700);
+		int windowWidth = this.getWidth(); //获得窗口宽
+		int windowHeight = this.getHeight(); //获得窗口高
+		Toolkit kit = Toolkit.getDefaultToolkit(); //定义工具包
+		Dimension screenSize = kit.getScreenSize(); //获取屏幕的尺寸
+		int screenWidth = screenSize.width; //获取屏幕的宽
+		int screenHeight = screenSize.height; //获取屏幕的高
+		this.setLocation((screenWidth - windowWidth)/2, (screenHeight - windowHeight)/2);//设置窗口居中显示
+		
 		this.setDefaultCloseOperation(LoginWindow.EXIT_ON_CLOSE);
 		
 		
@@ -82,32 +94,75 @@ public class DataWindow extends JFrame {
 		btn_mod.addActionListener(listener);
 		btn_find.addActionListener(listener);
 		btn_back.addActionListener(listener);
-		
-//		//文本输入框
-//		text_usr = new JTextField(11);
-//		text_usr.setFont(new Font("宋体", Font.PLAIN, 20));
-//		text_usr.setBounds(160, 50, 181, 30);
-//		text_pwd = new JTextField(16);
-//		text_pwd.setFont(new Font("宋体", Font.PLAIN, 20));
-//		text_pwd.setBounds(160, 116, 181, 30);
 
+		//table = new JTable();
+		//table.setBounds(10, 10, 785, 643);
 		
 		
-		
-//		//单选按钮
-//		sel_teacher = new JRadioButton("教师");
-//		sel_teacher.setFont(new Font("宋体", Font.PLAIN, 20));
-//		sel_teacher.setBounds(172, 177, 69, 23);
-//		
-//		sel_student = new JRadioButton("学生");
-//		sel_student.setSelected(true);
-//		sel_student.setFont(new Font("宋体", Font.PLAIN, 20));
-//		sel_student.setBounds(272, 177, 69, 23);
-//		
-//		// 创建按钮组，把两个单选按钮添加到该组
-//        btnGroup = new ButtonGroup();
-//        btnGroup.add(sel_teacher);
-//        btnGroup.add(sel_student);
+		// 表头（列名）
+        String[] columnNames = {"序号", "姓名", "语文", "数学", "英语", "总分"};
+
+        // 表格所有行数据
+        Object[][] rowData = {
+                {1, "张三", 80, 80, 80, 240},
+                {2, "John", 70, 80, 90, 240},
+                {3, "Sue", 70, 70, 70, 210},
+                {4, "Jane", 80, 70, 60, 210},
+                {5, "Joe_05", 80, 70, 60, 210},
+                {6, "Joe_06", 80, 70, 60, 210},
+                {7, "Joe_07", 80, 70, 60, 210},
+                {8, "Joe_08", 80, 70, 60, 210},
+                {9, "Joe_09", 80, 70, 60, 210},
+                {10, "Joe_10", 80, 70, 60, 210},
+                {11, "Joe_11", 80, 70, 60, 210},
+                {12, "Joe_12", 80, 70, 60, 210},
+                {13, "Joe_13", 80, 70, 60, 210},
+                {14, "Joe_14", 80, 70, 60, 210},
+                {15, "Joe_15", 80, 70, 60, 210},
+                {16, "Joe_16", 80, 70, 60, 210},
+                {17, "Joe_17", 80, 70, 60, 210},
+                {18, "Joe_18", 80, 70, 60, 210},
+                {19, "Joe_19", 80, 70, 60, 210},
+                {20, "Joe_20", 80, 70, 60, 210},
+                {21, "Joe_21", 80, 70, 60, 210},
+                {22, "Joe_22", 80, 70, 60, 210},
+                {23, "Joe_23", 80, 70, 60, 210},
+                {24, "Joe_24", 80, 70, 60, 210},
+                {25, "Joe_25", 80, 70, 60, 210}
+        };
+
+        // 创建一个表格，指定 表头 和 所有行数据
+        table = new JTable(rowData, columnNames);
+        
+
+        // 设置表格内容颜色
+        table.setForeground(Color.BLACK);                   // 字体颜色
+        table.setFont(new Font(null, Font.PLAIN, 14));      // 字体样式
+        table.setSelectionForeground(Color.DARK_GRAY);      // 选中后字体颜色
+        table.setSelectionBackground(Color.LIGHT_GRAY);     // 选中后字体背景
+        table.setGridColor(Color.GRAY);                     // 网格颜色
+
+        // 设置表头
+        table.getTableHeader().setFont(new Font(null, Font.BOLD, 14));  // 设置表头名称字体样式
+        table.getTableHeader().setForeground(Color.RED);                // 设置表头名称字体颜色
+        table.getTableHeader().setResizingAllowed(false);               // 设置不允许手动改变列宽
+        table.getTableHeader().setReorderingAllowed(false);             // 设置不允许拖动重新排序各列
+
+        // 设置行高
+        table.setRowHeight(30);
+
+        // 第一列列宽设置为40
+        table.getColumnModel().getColumn(0).setPreferredWidth(40);
+
+        // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
+        table.setPreferredScrollableViewportSize(new Dimension(400, 300));
+
+        // 把 表格 放到 滚动面板 中（表头将自动添加到滚动面板顶部）
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(10, 10, 785, 643);
+
+        // 添加 滚动面板 到 内容面板
+        panel.add(scrollPane);
 
 		
 		//添加组件到Pane中
@@ -116,12 +171,8 @@ public class DataWindow extends JFrame {
 		panel.add(btn_mod);
 		panel.add(btn_find);
 		panel.add(btn_back);
-		
-		table = new JTable();
-		table.setBounds(10, 10, 785, 643);
-		panel.add(table);
-		
-		
+		//panel.add(table);
+	
 		//主窗体可视化
 		this.setVisible(true);
 	}

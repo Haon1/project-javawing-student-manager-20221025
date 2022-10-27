@@ -17,6 +17,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class LoginWindow extends JFrame {
 	
@@ -157,7 +159,7 @@ public class LoginWindow extends JFrame {
 		}
 	}
 	//跳转到数据界面
-	public void gotoDataWindow(String identity) {
+	public void login(String identity) {
 		DataWindow datawin = new DataWindow(identity);
 		this.dispose();
 	}
@@ -195,7 +197,7 @@ public class LoginWindow extends JFrame {
 						identity = TEACHER;
 					}
 					//去数据窗体
-					gotoDataWindow(identity);
+					login(identity);
 				}
 			//重置按钮被点击
 			}else if(COMMAND_RESET.equals(command)) {

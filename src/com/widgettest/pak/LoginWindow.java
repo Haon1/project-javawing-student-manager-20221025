@@ -108,7 +108,7 @@ public class LoginWindow extends JFrame {
 		btn_exit.setBounds(284, 247, 98, 30);
 		btn_exit.setActionCommand(COMMAND_EXIT);
 		
-		MyActionListener listener = new MyActionListener();
+		LoginActionListener listener = new LoginActionListener(this);
 		btn_login.addActionListener(listener);
 		btn_reset.addActionListener(listener);
 		btn_exit.addActionListener(listener);
@@ -176,40 +176,4 @@ public class LoginWindow extends JFrame {
 		this.dispose();
 	}
 	
-	//内部类  事件监听器
-	private class MyActionListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			String command = e.getActionCommand();	//获取命令得到对应的按钮
-			
-			//登录按钮被点击
-			if(COMMAND_LOGIN.equals(command)) {
-				System.out.println("登录");
-				//检查账号密码是否正确
-				boolean isRight = checkAccount();
-				if(isRight) {
-					//确认登录身份
-					if(sel_student.isSelected()) {
-						identity = STUDENT;
-					}else {
-						identity = TEACHER;
-					}
-					//去数据窗体
-					login(identity);
-				}
-			//重置按钮被点击
-			}else if(COMMAND_RESET.equals(command)) {
-				System.out.println("重置");
-				reset();
-			//退出按钮被点击
-			}else if(COMMAND_EXIT.equals(command)) {
-				System.out.println("退出");
-				exit();
-			}
-			
-		}
-		
-	} 
 }

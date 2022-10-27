@@ -18,16 +18,28 @@ public class StudentTableModel extends DefaultTableModel {
 		tableTitleVector.addElement(columnNames[6]);
 	}
 	
-	//构造
+	//构造私有化
 	private StudentTableModel() {
 		super(null,tableTitleVector);
 	}
 	
+	//单例对象
 	private static StudentTableModel studentTableModel = new StudentTableModel();
 	
+	//加载表格
 	public static StudentTableModel assembleModel(Vector<Vector<Object>> data) {
 		studentTableModel.setDataVector(data,tableTitleVector);
 		return studentTableModel;
+	}
+	
+	//更新表格数据
+	public static StudentTableModel update(Vector<Vector<Object>> data) {
+		studentTableModel.setDataVector(data,tableTitleVector);
+		return studentTableModel;
+	}
+	
+	public static Vector<String> getColumns(){
+		return tableTitleVector;
 	}
 	
 	@Override

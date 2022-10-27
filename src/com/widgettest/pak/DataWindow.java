@@ -109,7 +109,7 @@ public class DataWindow extends JFrame {
 		btn_next.setActionCommand(COMMAND_NEXT);
 		
 		//把按钮注册到事件监听器
-		MyActionListener listener = new MyActionListener();
+		DataWindowActionListener listener = new DataWindowActionListener(this);
 		btn_add.addActionListener(listener);
 		btn_del.addActionListener(listener);
 		btn_mod.addActionListener(listener);
@@ -186,6 +186,11 @@ public class DataWindow extends JFrame {
 		this.setVisible(true);
 	}
 	
+	//重新加载表格
+	public void reloadTable() {
+		
+	} 
+	
 	//检查文件是否存在
 	public boolean isFileExist(String strFile) {
 		
@@ -261,39 +266,5 @@ public class DataWindow extends JFrame {
 		this.dispose();
 	}
 	
-	//内部类  事件监听器
-	private class MyActionListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			String command = e.getActionCommand();	//获取命令得到对应的按钮
-			
-			//增加按钮被点击
-			if(COMMAND_ADD.equals(command)) {
-				System.out.println("增加");
-			//删除按钮被点击
-			}else if(COMMAND_DEL.equals(command)) {
-				System.out.println("删除");
-			//修改按钮被点击
-			}else if(COMMAND_MOD.equals(command)) {
-				System.out.println("修改");
-			//查询按钮被点击
-			}else if(COMMAND_FIND.equals(command)) {
-				System.out.println("查询");
-			//返回按钮被点击
-			}else if(COMMAND_BACK.equals(command)) {
-				System.out.println("返回");
-				back();
-			}else if(COMMAND_PRE.equals(command)) {
-				System.out.println("上一页");
-			//返回按钮被点击
-			}else if(COMMAND_NEXT.equals(command)) {
-				System.out.println("下一页");
-			}
-			
-		}
-		
-	}
 }
 

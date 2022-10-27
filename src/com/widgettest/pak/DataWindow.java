@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,7 +20,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -43,8 +46,11 @@ public class DataWindow extends JFrame {
 	JButton btn_next;	//下一页
 	JTextField	text_input;
 	
-	private JTable table;
-	List<StudentData> m_list;
+	JTable table;
+	DefaultTableModel tableModel;
+	Vector<String> tableTitleVector;		//存放表格标题文本
+	Vector<Vector<Object>> dataVector;	//学生数据
+	JScrollPane scrollPane;
 	
 	final String COMMAND_ADD 	= "Add";
 	final String COMMAND_DEL 	= "Del";
@@ -86,23 +92,18 @@ public class DataWindow extends JFrame {
 		//JButton
 		btn_add = new JButton("增加");
 		btn_add.setFont(new Font("宋体", Font.PLAIN, 20));
-//		btn_add.setBounds(838, 84,102, 44);
 		btn_add.setActionCommand(COMMAND_ADD);
 		btn_del = new JButton("删除");
 		btn_del.setFont(new Font("宋体", Font.PLAIN, 20));
-//		btn_del.setBounds(838, 193,102, 44);
 		btn_del.setActionCommand(COMMAND_DEL);
 		btn_mod = new JButton("修改");
 		btn_mod.setFont(new Font("宋体", Font.PLAIN, 20));
-//		btn_mod.setBounds(838, 301,102, 44);
 		btn_mod.setActionCommand(COMMAND_MOD);
 		btn_find = new JButton("查询");
 		btn_find.setFont(new Font("宋体", Font.PLAIN, 20));
-//		btn_find.setBounds(838, 423,102, 44);
 		btn_find.setActionCommand(COMMAND_FIND);
 		btn_back = new JButton("返回");
 		btn_back.setFont(new Font("宋体", Font.PLAIN, 20));
-//		btn_back.setBounds(838, 553,102, 44);
 		btn_back.setActionCommand(COMMAND_BACK);
 		
 		btn_pre  = new JButton("上一页");
@@ -122,43 +123,27 @@ public class DataWindow extends JFrame {
 		btn_pre.addActionListener(listener);
 		btn_next.addActionListener(listener);
 		
-        m_list = new ArrayList<StudentData>();
+		// 表头（列名）
+        String[] columnNames = {"序号", "姓名", "学号", "语文", "数学", "英语", "总分"};
+		tableTitleVector = new Vector<>();
+		tableTitleVector.addElement(columnNames[0]);
+		tableTitleVector.addElement(columnNames[1]);
+		tableTitleVector.addElement(columnNames[2]);
+		tableTitleVector.addElement(columnNames[3]);
+		tableTitleVector.addElement(columnNames[4]);
+		tableTitleVector.addElement(columnNames[5]);
+		tableTitleVector.addElement(columnNames[6]);
+        
+        //创建学生数据容器
+        dataVector = new Vector<>();
+        //从文件读取学生数据到vector中
         if(isFileExist(FILE_PATH))
         	readFile(FILE_PATH);
-        // 表头（列名）
-        String[] columnNames = {"序号", "姓名", "语文", "数学", "英语", "总分"};
-        //Object [][]rowData =  m_list.toArray();
-        // 表格所有行数据
-        Object[][] rowData = {
-                {1, "张三", 80, 80, 80, 240},
-                {2, "John", 70, 80, 90, 240},
-                {3, "Sue", 70, 70, 70, 210},
-                {4, "Jane", 80, 70, 60, 210},
-                {5, "Joe_05", 80, 70, 60, 210},
-                {6, "Joe_06", 80, 70, 60, 210},
-                {7, "Joe_07", 80, 70, 60, 210},
-                {8, "Joe_08", 80, 70, 60, 210},
-                {9, "Joe_09", 80, 70, 60, 210},
-                {10, "Joe_10", 80, 70, 60, 210},
-                {11, "Joe_11", 80, 70, 60, 210},
-                {12, "Joe_12", 80, 70, 60, 210},
-                {13, "Joe_13", 80, 70, 60, 210},
-                {14, "Joe_14", 80, 70, 60, 210},
-                {15, "Joe_15", 80, 70, 60, 210},
-                {16, "Joe_16", 80, 70, 60, 210},
-                {17, "Joe_17", 80, 70, 60, 210},
-                {18, "Joe_18", 80, 70, 60, 210},
-                {19, "Joe_19", 80, 70, 60, 210},
-                {20, "Joe_20", 80, 70, 60, 210},
-                {21, "Joe_21", 80, 70, 60, 210},
-                {22, "Joe_22", 80, 70, 60, 210},
-                {23, "Joe_23", 80, 70, 60, 210},
-                {24, "Joe_24", 80, 70, 60, 210},
-                {25, "Joe_25", 80, 70, 60, 210}
-        };
-
+        
+        tableModel = new DefaultTableModel();
+        tableModel.setDataVector(dataVector,tableTitleVector);
         // 创建一个表格，指定 表头 和 所有行数据
-        table = new JTable(rowData, columnNames);
+        table = new JTable(tableModel);
         
 
         // 设置表格内容颜色
@@ -184,8 +169,7 @@ public class DataWindow extends JFrame {
         table.setPreferredScrollableViewportSize(new Dimension(400, 300));
 
         // 把 表格 放到 滚动面板 中（表头将自动添加到滚动面板顶部）
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(10, 10, 785, 643);
+        scrollPane = new JScrollPane(table);
 
         // 添加 滚动面板 到 内容面板
         centerPanel.add(scrollPane);
@@ -226,14 +210,22 @@ public class DataWindow extends JFrame {
             File file = new File(strFile);
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             String strLine = null;
-            //int lineCount = 1;
+            int lineCount = 1;
             while(null != (strLine = bufferedReader.readLine())){
-                //System.out.println("第[" + lineCount + "]行数据:[" + strLine + "]");
+                System.out.println("第[" + lineCount + "]行数据:[" + strLine + "]");
                 String[] ite = strLine.split("    ");
                 //System.out.println(ite.length);
-                StudentData data = new StudentData(ite[0],ite[1],ite[2],ite[3],ite[4]);
-                m_list.add(data);
-                //lineCount++;
+                //StudentData data = new StudentData(ite[0],ite[1],ite[2],ite[3],ite[4]);
+                Vector<Object> data = new Vector<>();
+                data.addElement(ite[0]);
+                data.addElement(ite[1]);
+                data.addElement(ite[2]);
+                data.addElement(ite[3]);
+                data.addElement(ite[4]);
+                data.addElement(ite[5]);
+                data.addElement(ite[6]);
+                dataVector.addElement(data);
+                lineCount++;
             }
             //关闭句柄
             bufferedReader.close();
@@ -249,11 +241,21 @@ public class DataWindow extends JFrame {
 	    try {
         	fileWriter = new FileWriter(file);
         	fileWriter.write("");	//清空文件内容
-        	for(StudentData data:m_list) {
-        		String s = data.m_id+ "    " + data.m_name + "    " + data.m_chinese +"    "
-        					+ data.m_math + "    " + data.m_english + "\n";
+        	System.out.println("有 " + dataVector.size() + " 项数据");
+        	Iterator<Vector<Object>> it =  dataVector.iterator();
+        	int i=1;
+        	while(it.hasNext()) {
+        		Vector<Object> data = it.next();
+        		//System.out.println((Object)it.next());
+        		System.out.println("data.size = " + data.size());
+        		String s = data.elementAt(0).toString() + "    " 
+        					+ data.elementAt(1) + "    " + data.elementAt(2) + "    "
+        					+ data.elementAt(3) + "    " + data.elementAt(4) + "    "
+        					+ data.elementAt(5) + "    " + data.elementAt(6) + "\n";
+        		System.out.println("写入[" + i + "]" + " " + s);
         		fileWriter.write(s);
         		fileWriter.flush();
+        		i++;
         	}
         	
         	//关闭写文件句柄

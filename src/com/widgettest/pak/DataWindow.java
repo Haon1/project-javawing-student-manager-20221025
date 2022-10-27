@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.JSlider;
 
 public class DataWindow extends JFrame {
 	
@@ -80,7 +81,7 @@ public class DataWindow extends JFrame {
 		
 		northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));	//流布局
 		centerPanel = new JPanel(new BorderLayout());				//边界布局
-		southPanel = new JPanel();
+		southPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));									//南边面板
 		
 		//JButton
 		btn_add = new JButton("增加");
@@ -199,11 +200,11 @@ public class DataWindow extends JFrame {
         northPanel.add(btn_mod);
         northPanel.add(text_input);
         northPanel.add(btn_find);
-        northPanel.add(btn_back);
         container.add(northPanel,BorderLayout.NORTH);
         
         southPanel.add(btn_pre);
         southPanel.add(btn_next);
+        southPanel.add(btn_back);
         container.add(southPanel,BorderLayout.SOUTH);
         
 	
@@ -293,6 +294,11 @@ public class DataWindow extends JFrame {
 			}else if(COMMAND_BACK.equals(command)) {
 				System.out.println("返回");
 				back();
+			}else if(COMMAND_PRE.equals(command)) {
+				System.out.println("上一页");
+			//返回按钮被点击
+			}else if(COMMAND_NEXT.equals(command)) {
+				System.out.println("下一页");
 			}
 			
 		}

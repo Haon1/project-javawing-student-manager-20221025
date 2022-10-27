@@ -1,9 +1,11 @@
 package com.widgettest.pak;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
@@ -19,14 +21,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
-import javax.swing.JSlider;
 
 public class DataWindow extends JFrame {
 	
@@ -151,7 +150,12 @@ public class DataWindow extends JFrame {
         table.setFont(new Font(null, Font.PLAIN, 14));      // 字体样式
         table.setSelectionForeground(Color.DARK_GRAY);      // 选中后字体颜色
         table.setSelectionBackground(Color.LIGHT_GRAY);     // 选中后字体背景
-        table.setGridColor(Color.GRAY);                     // 网格颜色
+        table.setGridColor(Color.BLACK);                     // 网格颜色
+        //设置文字居中
+        DefaultTableCellRenderer dc=new DefaultTableCellRenderer();
+        dc.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class, dc);
+
 
         // 设置表头
         table.getTableHeader().setFont(new Font(null, Font.BOLD, 14));  // 设置表头名称字体样式
@@ -192,7 +196,7 @@ public class DataWindow extends JFrame {
         container.add(southPanel,BorderLayout.SOUTH);
         
 	
-		writeFile("D:/Haon/1.txt");
+		//writeFile("D:/Haon/1.txt");
 		//主窗体可视化
 		this.setVisible(true);
 	}

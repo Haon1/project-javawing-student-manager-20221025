@@ -46,8 +46,6 @@ public class DataWindow extends JFrame {
 	JTextField	text_input;
 	
 	JTable table;
-	DefaultTableModel tableModel;
-	Vector<String> tableTitleVector;		//存放表格标题文本
 	Vector<Vector<Object>> dataVector;	//学生数据
 	JScrollPane scrollPane;
 	
@@ -122,16 +120,7 @@ public class DataWindow extends JFrame {
 		btn_pre.addActionListener(listener);
 		btn_next.addActionListener(listener);
 		
-		// 表头（列名）
-        String[] columnNames = {"序号", "姓名", "学号", "语文", "数学", "英语", "总分"};
-		tableTitleVector = new Vector<>();
-		tableTitleVector.addElement(columnNames[0]);
-		tableTitleVector.addElement(columnNames[1]);
-		tableTitleVector.addElement(columnNames[2]);
-		tableTitleVector.addElement(columnNames[3]);
-		tableTitleVector.addElement(columnNames[4]);
-		tableTitleVector.addElement(columnNames[5]);
-		tableTitleVector.addElement(columnNames[6]);
+		
         
         //创建学生数据容器
         dataVector = new Vector<>();
@@ -139,10 +128,10 @@ public class DataWindow extends JFrame {
         if(isFileExist(FILE_PATH))
         	readFile(FILE_PATH);
         
-        tableModel = new DefaultTableModel();
-        tableModel.setDataVector(dataVector,tableTitleVector);
+        //全局唯一单例对象
+        StudentTableModel studentTableModel = StudentTableModel.assembleModel(dataVector);		
         // 创建一个表格，指定 表头 和 所有行数据
-        table = new JTable(tableModel);
+        table = new JTable(studentTableModel);
         
 
         // 设置表格内容颜色
@@ -167,7 +156,7 @@ public class DataWindow extends JFrame {
         table.setRowHeight(30);
 
         // 第一列列宽设置为40
-        table.getColumnModel().getColumn(0).setPreferredWidth(40);
+        table.getColumnModel().getColumn(0).setPreferredWidth(20);
 
         // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
         table.setPreferredScrollableViewportSize(new Dimension(400, 300));
@@ -311,3 +300,4 @@ public class DataWindow extends JFrame {
 		
 	}
 }
+

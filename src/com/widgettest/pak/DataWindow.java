@@ -1,12 +1,10 @@
 package com.widgettest.pak;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -120,8 +118,6 @@ public class DataWindow extends JFrame {
 		btn_pre.addActionListener(listener);
 		btn_next.addActionListener(listener);
 		
-		
-        
         //创建学生数据容器
         dataVector = new Vector<>();
         //从文件读取学生数据到vector中
@@ -142,7 +138,7 @@ public class DataWindow extends JFrame {
         table.setGridColor(Color.BLACK);                     // 网格颜色
         //设置文字居中
         DefaultTableCellRenderer dc=new DefaultTableCellRenderer();
-        dc.setHorizontalAlignment(JLabel.CENTER);
+        dc.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
         table.setDefaultRenderer(Object.class, dc);
 
 

@@ -16,6 +16,9 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -219,7 +222,24 @@ public class DataWindow extends JFrame {
 	
 	//把list中的数据写入文件中
 	public void writeFile(String strFile) {
-		
+        File file = new File(strFile);
+        FileWriter fileWriter = null;
+	    try {
+        	fileWriter = new FileWriter(file);
+        	fileWriter.write("");	//清空文件内容
+        	for(StudentData data:m_list) {
+        		String s = data.m_id+ "    " + data.m_name + "    " + data.m_chinese +"    "
+        					+ data.m_math + "    " + data.m_english;
+        		fileWriter.write(s);
+        		fileWriter.flush();
+        	}
+        	
+        	//关闭写文件句柄
+        	fileWriter.close();
+
+	    }catch(IOException e) {
+	    	e.printStackTrace();
+	    }
 	}
 
 	//返回登录界面

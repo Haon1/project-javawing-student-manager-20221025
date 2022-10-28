@@ -108,7 +108,7 @@ public class LoginWindow extends JFrame {
 		btn_exit.setBounds(284, 247, 98, 30);
 		btn_exit.setActionCommand(COMMAND_EXIT);
 		
-		LoginActionListener listener = new LoginActionListener(this);
+		LoginWindowActionListener listener = new LoginWindowActionListener(this);
 		btn_login.addActionListener(listener);
 		btn_reset.addActionListener(listener);
 		btn_exit.addActionListener(listener);

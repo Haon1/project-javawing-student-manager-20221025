@@ -152,7 +152,7 @@ public class DataWindow extends JFrame {
         table.setRowHeight(30);
 
         // 第一列列宽设置为40
-        table.getColumnModel().getColumn(0).setPreferredWidth(20);
+        table.getColumnModel().getColumn(0).setPreferredWidth(10);
 
         // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
         table.setPreferredScrollableViewportSize(new Dimension(400, 300));

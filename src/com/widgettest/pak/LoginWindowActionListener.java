@@ -3,11 +3,11 @@ package com.widgettest.pak;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginActionListener implements ActionListener {
+public class LoginWindowActionListener implements ActionListener {
 	
 	private LoginWindow loginWindow;
 	
-	public LoginActionListener(LoginWindow loginWindow) {
+	public LoginWindowActionListener(LoginWindow loginWindow) {
 		this.loginWindow = loginWindow;
 	}
 	

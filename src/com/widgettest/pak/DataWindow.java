@@ -12,8 +12,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -152,7 +150,7 @@ public class DataWindow extends JFrame {
         table.setRowHeight(30);
 
         // 第一列列宽设置为40
-        table.getColumnModel().getColumn(0).setPreferredWidth(10);
+        table.getColumnModel().getColumn(0).setPreferredWidth(12);
 
         // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
         table.setPreferredScrollableViewportSize(new Dimension(400, 300));
@@ -181,15 +179,35 @@ public class DataWindow extends JFrame {
         container.add(southPanel,BorderLayout.SOUTH);
         
 	
-		//writeFile("D:/Haon/1.txt");
+		writeFile("D:/Haon/1.txt");
 		//主窗体可视化
 		this.setVisible(true);
 	}
 	
 	//重新加载表格
-	public void reloadTable() {
-		
+	public void reloadTable(Vector<Vector<Object>> data) {
+		StudentTableModel.updateModel(data);
 	} 
+	
+	//查询
+	public void search() {
+		String name = text_input.getText();
+		System.out.println("name == " + name);
+		Vector<Vector<Object>> tmpVector = new Vector<>();
+		if(name!=null) {
+			Iterator<Vector<Object>> it =  dataVector.iterator();
+        	while(it.hasNext()) {
+        		Vector<Object> data = it.next();
+        		if(data.elementAt(1).toString().contains(name)) {
+        			System.out.println(data.elementAt(1));
+        			tmpVector.addElement(data);
+        		}
+        	}
+		}
+		
+		reloadTable(tmpVector);
+		table.getColumnModel().getColumn(0).setPreferredWidth(10);
+	}
 	
 	//检查文件是否存在
 	public boolean isFileExist(String strFile) {
@@ -242,7 +260,7 @@ public class DataWindow extends JFrame {
         		Vector<Object> data = it.next();
         		//System.out.println((Object)it.next());
         		System.out.println("data.size = " + data.size());
-        		String s = data.elementAt(0).toString() + "    " 
+        		String s = data.elementAt(0)    + "    " 
         					+ data.elementAt(1) + "    " + data.elementAt(2) + "    "
         					+ data.elementAt(3) + "    " + data.elementAt(4) + "    "
         					+ data.elementAt(5) + "    " + data.elementAt(6) + "\n";

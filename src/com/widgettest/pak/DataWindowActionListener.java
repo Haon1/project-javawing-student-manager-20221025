@@ -28,6 +28,7 @@ public class DataWindowActionListener implements ActionListener {
 		//查询按钮被点击
 		}else if(dataWindow.COMMAND_FIND.equals(command)) {
 			System.out.println("查询");
+			dataWindow.search();
 		//返回按钮被点击
 		}else if(dataWindow.COMMAND_BACK.equals(command)) {
 			System.out.println("返回");

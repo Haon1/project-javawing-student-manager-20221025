@@ -33,9 +33,8 @@ public class StudentTableModel extends DefaultTableModel {
 	}
 	
 	//更新表格数据
-	public static StudentTableModel update(Vector<Vector<Object>> data) {
+	public static void updateModel(Vector<Vector<Object>> data) {
 		studentTableModel.setDataVector(data,tableTitleVector);
-		return studentTableModel;
 	}
 	
 	public static Vector<String> getColumns(){

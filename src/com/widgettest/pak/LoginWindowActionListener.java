@@ -19,17 +19,18 @@ public class LoginWindowActionListener implements ActionListener {
 		if(loginWindow.COMMAND_LOGIN.equals(command)) {
 			System.out.println("登录");
 			//检查账号密码是否正确
-			boolean isRight = loginWindow.checkAccount();
-			if(isRight) {
-				//确认登录身份
-				if(loginWindow.sel_student.isSelected()) {
-					loginWindow.identity = loginWindow.STUDENT;
-				}else {
-					loginWindow.identity = loginWindow.TEACHER;
-				}
-				//去数据窗体
-				loginWindow.login(loginWindow.identity);
-			}
+//			boolean isRight = loginWindow.checkAccount();
+//			if(isRight) {
+//				//确认登录身份
+//				if(loginWindow.sel_student.isSelected()) {
+//					loginWindow.identity = loginWindow.STUDENT;
+//				}else {
+//					loginWindow.identity = loginWindow.TEACHER;
+//				}
+//				//去数据窗体
+//				loginWindow.login(loginWindow.identity);
+//			}
+			loginWindow.login("学生");
 		//重置按钮被点击
 		}else if(loginWindow.COMMAND_RESET.equals(command)) {
 			System.out.println("重置");

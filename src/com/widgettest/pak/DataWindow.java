@@ -67,9 +67,22 @@ public class DataWindow extends JFrame {
 	
 	//重载show方法
 	void show(String identity) {
-		this.identity = identity.equals("Teacher")?"教师":"学生";
+		this.identity = identity.equals(parent.TEACHER)?"教师":"学生";
 		String ti = "学生数据管理页,您的身份是：";
-		this.setTitle(ti + identity);
+		//设置标题
+		this.setTitle(ti + this.identity);
+		//判断身份
+		if(identity.equals(parent.TEACHER)) {
+			//如果是老师,增加、删除、修改可点击
+			btn_add.setEnabled(true);
+			btn_del.setEnabled(true);
+			btn_mod.setEnabled(true);
+		}else {
+			//否则不可点击
+			btn_add.setEnabled(false);
+			btn_del.setEnabled(false);
+			btn_mod.setEnabled(false);
+		}
 		this.setVisible(true);
 	}
 	

@@ -16,6 +16,8 @@ import java.awt.Toolkit;
 
 public class LoginWindow extends JFrame {
 	
+	DataWindow datawin;
+	
 	JPanel panel;
 	JLabel lb_usr;
 	JLabel lb_pwd;
@@ -49,6 +51,7 @@ public class LoginWindow extends JFrame {
 		super(TITLE);
 		this.setResizable(false);
 		init();
+		datawin = new DataWindow(this);
 	}
 	
 	//组件初始化
@@ -154,8 +157,9 @@ public class LoginWindow extends JFrame {
 	}
 	//跳转到数据界面
 	public void login(String identity) {
-		DataWindow datawin = new DataWindow(identity);
-		this.dispose();
+		
+		this.setVisible(false);
+		datawin.show(identity);
 	}
 	
 	//重置登录界面数据

@@ -7,6 +7,7 @@ public class MainWindow {
 	public static void main(String[] args) {
 		
 		JFrame app = new LoginWindow();
+		app.setVisible(true);
 	}
 
 }

@@ -25,6 +25,7 @@ import javax.swing.JTable;
 
 public class DataWindow extends JFrame {
 	
+	LoginWindow parent;
 	String identity;
 	
 	Container container;
@@ -58,16 +59,21 @@ public class DataWindow extends JFrame {
 	
 	
 	
-	public DataWindow(String identity) {
+	public DataWindow(LoginWindow parent) {
 		//this.setResizable(false);
-		this.identity = identity.equals("Teacher")?"教师":"学生";
+		this.parent = parent;
 		init();
 	}
 	
-	public void init() {
-		
+	//重载show方法
+	void show(String identity) {
+		this.identity = identity.equals("Teacher")?"教师":"学生";
 		String ti = "学生数据管理页,您的身份是：";
 		this.setTitle(ti + identity);
+		this.setVisible(true);
+	}
+	
+	public void init() {
 		
 		//根据屏幕大小设置数据界面大小
 		this.setBounds(DimensionUtil.getBounds());
@@ -182,7 +188,7 @@ public class DataWindow extends JFrame {
 	
 		writeFile("D:/Haon/1.txt");
 		//主窗体可视化
-		this.setVisible(true);
+		//this.setVisible(true);
 	}
 	
 	//重新加载表格
@@ -281,8 +287,8 @@ public class DataWindow extends JFrame {
 
 	//返回登录界面
 	public void back() {
-		LoginWindow loginwin = new LoginWindow();
-		this.dispose();
+		parent.setVisible(true);;
+		this.setVisible(false);;
 	}
 	
 }

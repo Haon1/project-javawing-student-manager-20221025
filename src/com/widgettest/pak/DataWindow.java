@@ -83,6 +83,11 @@ public class DataWindow extends JFrame {
 			btn_del.setEnabled(false);
 			btn_mod.setEnabled(false);
 		}
+		//每次显示之前重新加载所有学生数据
+		this.reloadTable(dataVector);
+		//清空输入框数据,避免保留上一次的输入
+		text_input.setText("");
+		//可视化
 		this.setVisible(true);
 	}
 	
@@ -169,7 +174,7 @@ public class DataWindow extends JFrame {
         // 设置行高
         table.setRowHeight(30);
 
-        // 第一列列宽设置为40
+        // 第一列列宽
         table.getColumnModel().getColumn(0).setPreferredWidth(10);
 
         // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
@@ -207,7 +212,8 @@ public class DataWindow extends JFrame {
 	//重新加载表格
 	public void reloadTable(Vector<Vector<Object>> data) {
 		StudentTableModel.updateModel(data);
-	} 
+		table.getColumnModel().getColumn(0).setPreferredWidth(10);
+	}
 	
 	//点击查询之后调用的方法
 	public void search() {
@@ -225,7 +231,6 @@ public class DataWindow extends JFrame {
         	}
         	
         	reloadTable(tmpVector);
-    		table.getColumnModel().getColumn(0).setPreferredWidth(10);
 		}
 	}
 	

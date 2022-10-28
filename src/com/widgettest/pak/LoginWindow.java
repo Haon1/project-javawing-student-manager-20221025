@@ -155,11 +155,22 @@ public class LoginWindow extends JFrame {
 			return false;
 		}
 	}
-	//跳转到数据界面
-	public void login(String identity) {
+	//登录到数据界面
+	public void login() {
 		
-		this.setVisible(false);
-		datawin.show(identity);
+		//检查账号密码是否正确
+		boolean result = checkAccount();
+		if(result) {
+			//确认登录身份
+			if(sel_student.isSelected()) {
+				this.identity = this.STUDENT;
+			}else {
+				this.identity = this.TEACHER;
+			}
+			this.setVisible(false);
+			datawin.show(identity);
+		}
+		
 	}
 	
 	//重置登录界面数据

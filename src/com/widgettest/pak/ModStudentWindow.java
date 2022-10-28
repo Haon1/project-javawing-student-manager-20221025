@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.util.Iterator;
 import java.util.Vector;
 
-import javax.management.openmbean.CompositeDataView;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;

@@ -23,6 +23,7 @@ public class DataWindowActionListener implements ActionListener {
 		//删除按钮被点击
 		}else if(dataWindow.COMMAND_DEL.equals(command)) {
 			System.out.println("删除");
+			new DelStudentWindow(dataWindow);
 		//修改按钮被点击
 		}else if(dataWindow.COMMAND_MOD.equals(command)) {
 			System.out.println("修改");

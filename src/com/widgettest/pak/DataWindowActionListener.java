@@ -19,6 +19,7 @@ public class DataWindowActionListener implements ActionListener {
 		//增加按钮被点击
 		if(dataWindow.COMMAND_ADD.equals(command)) {
 			System.out.println("增加");
+			new AddStudentWindow(dataWindow);
 		//删除按钮被点击
 		}else if(dataWindow.COMMAND_DEL.equals(command)) {
 			System.out.println("删除");

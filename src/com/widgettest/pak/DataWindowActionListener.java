@@ -27,6 +27,7 @@ public class DataWindowActionListener implements ActionListener {
 		//修改按钮被点击
 		}else if(dataWindow.COMMAND_MOD.equals(command)) {
 			System.out.println("修改");
+			new ModStudentWindow(dataWindow);
 		//查询按钮被点击
 		}else if(dataWindow.COMMAND_FIND.equals(command)) {
 			System.out.println("查询");

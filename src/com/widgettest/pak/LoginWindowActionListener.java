@@ -30,7 +30,7 @@ public class LoginWindowActionListener implements ActionListener {
 //				//去数据窗体
 //				loginWindow.login(loginWindow.identity);
 //			}
-			loginWindow.login("学生");
+			loginWindow.login("Teacher");
 		//重置按钮被点击
 		}else if(loginWindow.COMMAND_RESET.equals(command)) {
 			System.out.println("重置");

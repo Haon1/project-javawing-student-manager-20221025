@@ -29,6 +29,8 @@ public class AddStudentWindow extends JDialog {
 	JTextField text_all;
 	JButton btn_add;
 	
+	final String COMMOND_ADD = "Add";
+	
 	
 	public AddStudentWindow(DataWindow dataWindow) {
 		super(dataWindow,"添加学生",true);
@@ -100,6 +102,10 @@ public class AddStudentWindow extends JDialog {
 		
 		btn_add = new JButton("添加");
 		btn_add.setFont(new Font("宋体", Font.PLAIN, 20));
+		btn_add.setActionCommand(COMMOND_ADD);
+		AddStudentWindowActionListener listener = new AddStudentWindowActionListener(this);
+		btn_add.addActionListener(listener);
+		
 		
 		panel.add(lb_name);
 		panel.add(text_name);

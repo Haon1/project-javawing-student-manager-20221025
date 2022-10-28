@@ -209,12 +209,12 @@ public class DataWindow extends JFrame {
 		StudentTableModel.updateModel(data);
 	} 
 	
-	//查询
+	//点击查询之后调用的方法
 	public void search() {
 		String name = text_input.getText();
 		System.out.println("name == " + name);
 		Vector<Vector<Object>> tmpVector = new Vector<>();
-		if(name!=null) {
+		if(!name.isEmpty()) {
 			Iterator<Vector<Object>> it =  dataVector.iterator();
         	while(it.hasNext()) {
         		Vector<Object> data = it.next();

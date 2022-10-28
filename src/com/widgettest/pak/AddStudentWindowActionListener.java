@@ -16,6 +16,7 @@ public class AddStudentWindowActionListener implements ActionListener {
 		String command = e.getActionCommand();	//获取命令得到对应的按钮
 		if(addStudentWindow.COMMOND_ADD.equals(command)) {
 			System.out.println("点击添加");
+			addStudentWindow.btnAddClickHandler();
 		}
 	}
 

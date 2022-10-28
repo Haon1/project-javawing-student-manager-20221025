@@ -42,6 +42,7 @@ public class DataWindow extends JFrame {
 	JTextField	text_input;
 	
 	JTable table;
+	StudentTableModel studentTableModel;
 	Vector<Vector<Object>> dataVector;	//学生数据
 	JScrollPane scrollPane;
 	
@@ -123,7 +124,7 @@ public class DataWindow extends JFrame {
         	readFile(FILE_PATH);
         
         //全局唯一单例对象
-        StudentTableModel studentTableModel = StudentTableModel.assembleModel(dataVector);		
+        studentTableModel = StudentTableModel.assembleModel(dataVector);		
         // 创建一个表格，指定 表头 和 所有行数据
         table = new JTable(studentTableModel);
         
@@ -203,10 +204,10 @@ public class DataWindow extends JFrame {
         			tmpVector.addElement(data);
         		}
         	}
+        	
+        	reloadTable(tmpVector);
+    		table.getColumnModel().getColumn(0).setPreferredWidth(10);
 		}
-		
-		reloadTable(tmpVector);
-		table.getColumnModel().getColumn(0).setPreferredWidth(10);
 	}
 	
 	//检查文件是否存在

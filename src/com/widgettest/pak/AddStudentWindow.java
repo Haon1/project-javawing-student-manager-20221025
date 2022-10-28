@@ -4,14 +4,18 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class AddStudentWindow extends JDialog {
+	
+	DataWindow dataWindow;
 	
 	Container container;
 	JPanel panel;
@@ -34,6 +38,7 @@ public class AddStudentWindow extends JDialog {
 	
 	public AddStudentWindow(DataWindow dataWindow) {
 		super(dataWindow,"添加学生",true);
+		this.dataWindow = dataWindow;
 		setSize(400,450);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -98,6 +103,7 @@ public class AddStudentWindow extends JDialog {
 		text_all = new JTextField();
 		text_all.setPreferredSize(new Dimension(200,30));
 		text_all.setFont(new Font("宋体", Font.PLAIN, 20));
+		text_all.setEnabled(false);
 
 		
 		btn_add = new JButton("添加");
@@ -123,6 +129,53 @@ public class AddStudentWindow extends JDialog {
 		panel.add(btn_add);
 		
 		container.add(panel);
+	}
+	
+	//点击添加之后执行的方法
+	public void btnAddClickHandler(){
+		//新建一个容器
+		Vector<Object> inputData = new Vector<>();
+		
+		//拿出输入框上的文字
+		String name = text_name.getText();
+		String id = text_id.getText();
+		String cn = text_cn.getText();
+		String math = text_math.getText();
+		String eng = text_eng.getText();
+		
+		//判断数据输入是否正确
+		if(name.isEmpty() || id.isEmpty() || cn.isEmpty() || math.isEmpty() || eng.isEmpty()) {
+			JOptionPane.showMessageDialog(this,"数据不完整","添加",JOptionPane.WARNING_MESSAGE);
+			return ;
+		}
+		
+		//填充总分
+		float all = Float.parseFloat(cn) + Float.parseFloat(math) + Float.parseFloat(eng);
+		text_all.setText(Float.toString(all));
+		
+		//把每个输入的数据都添加到容器中
+		inputData.addElement(dataWindow.dataVector.size()+1);
+		inputData.addElement(name);
+		inputData.addElement(id);
+		inputData.addElement(cn);
+		inputData.addElement(math);
+		inputData.addElement(eng);
+		inputData.addElement(all);
+		
+		//把数据添加到父窗体的dataVector中
+		dataWindow.dataVector.addElement(inputData);
+		//执行父窗体的重新加载table
+		dataWindow.reloadTable(dataWindow.dataVector);
+		//提示
+		JOptionPane.showMessageDialog(this,"添加成功","添加",JOptionPane.WARNING_MESSAGE);
+		
+		//清空所有输入框
+		text_name.setText("");
+		text_id.setText("");
+		text_cn.setText("");
+		text_math.setText("");
+		text_eng.setText("");
+		text_all.setText("");
 	}
 
 }

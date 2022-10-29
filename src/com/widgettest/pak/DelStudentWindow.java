@@ -85,24 +85,38 @@ public class DelStudentWindow extends JDialog {
 		Vector<Vector<Object>> tmpVector = dataWindow.dataVector;
 		//建立迭代器用于遍历数据容器
 		Iterator<Vector<Object>> it =  tmpVector.iterator();
+		//建立标志位，是否找到该学生
+		boolean flag = false;
 		//遍历学生数据
     	while(it.hasNext()) {
     		Vector<Object> data = it.next();
     		//如果data中的第二项和id匹配,也就是存在该学生
-    		if(data.elementAt(2).equals(id)) {
+    		if(data.elementAt(2).equals(id) && flag == false) {
+    			flag = true;
+    			System.out.println(data.elementAt(0));
     			//从学生数据容器中删除这一项数据
-    			tmpVector.removeElement(data);
-    			//数据界面重新加载表格
-    			dataWindow.reloadTable(tmpVector);
-    			//弹框提示
-    			JOptionPane.showMessageDialog(this,"删除成功","删除",JOptionPane.WARNING_MESSAGE);
-    			//清空文本输入框
-    			text_id.setText("");
-    			return ;
+    			//tmpVector.removeElement(data);	//此方法会导致除了删除倒数第二个正常，其他均会抛出异常
+    			it.remove();		//改为这个
+    		}
+    		else if(flag) {
+    			//删除之后把后面的序号全部 -1
+				int no = Integer.parseInt(data.elementAt(0).toString())-1;
+				//System.out.println("下一个序号是" + no);
+				data.setElementAt(Integer.toString(no), 0);
     		}
 
     	}
-    	//学生数据容器中没有匹配的学号
-    	JOptionPane.showMessageDialog(this,"该生不存在","删除",JOptionPane.WARNING_MESSAGE);
+    	
+    	if(flag) {
+    		//数据界面重新加载表格
+    		dataWindow.reloadTable(tmpVector);
+    		//弹框提示
+    		JOptionPane.showMessageDialog(this,"删除成功","删除",JOptionPane.WARNING_MESSAGE);
+    		//清空文本输入框
+    		text_id.setText("");
+    	}else {
+    		//学生数据容器中没有匹配的学号
+        	JOptionPane.showMessageDialog(this,"该生不存在","删除",JOptionPane.WARNING_MESSAGE);
+    	}
 	}
 }

@@ -217,19 +217,36 @@ public class DataWindow extends JFrame {
 	
 	//点击查询之后调用的方法
 	public void search() {
+		//获取输入框上的名字
 		String name = text_input.getText();
-		System.out.println("name == " + name);
+		//System.out.println("name == " + name);
+		//创建一个临时学生数据容器
 		Vector<Vector<Object>> tmpVector = new Vector<>();
+		//用于计数
+		int lineCount = 0;
+		
 		if(!name.isEmpty()) {
+			//创建迭代器指向原学生数据容器
 			Iterator<Vector<Object>> it =  dataVector.iterator();
+			//遍历原学生数据容器
         	while(it.hasNext()) {
         		Vector<Object> data = it.next();
-        		if(data.elementAt(1).toString().contains(name)) {
-        			System.out.println(data.elementAt(1));
-        			tmpVector.addElement(data);
+        		//Vector<Object> tmpData = data;	//拷贝当前组件，避免影响原来的数据,这样还是指向原来的数据
+        		Vector<Object> tmpData = new Vector<>();		//拷贝当前组件，避免影响原来的数据
+        		tmpData = (Vector)data.clone();					//拷贝当前组件，避免影响原来的数据
+        		//如果出现名字匹配
+        		if(tmpData.elementAt(1).toString().contains(name)) {
+        			//数量 +1
+        			lineCount++;
+        			System.out.println(tmpData.elementAt(1));
+        			
+        			//该生序号从1开始排序，用当前数量代替原来的序号
+        			tmpData.setElementAt(Integer.toString(lineCount), 0);
+        			//把修改后的数据加入到临时容器中
+        			tmpVector.addElement(tmpData);
         		}
         	}
-        	
+        	//用临时容器更新表格
         	reloadTable(tmpVector);
 		}
 	}

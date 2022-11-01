@@ -139,7 +139,7 @@ public class LoginWindow extends JFrame {
 		panel.add(sel_student);
 		
 		//主窗体可视化
-		this.setVisible(true);
+		//this.setVisible(true);
 	}
 	
 	//检查账号密码是否正确

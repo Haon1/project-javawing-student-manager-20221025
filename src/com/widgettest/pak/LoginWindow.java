@@ -159,8 +159,7 @@ public class LoginWindow extends JFrame {
 	public void login() {
 		
 		//检查账号密码是否正确
-		//boolean result = checkAccount();
-		boolean result = true;
+		boolean result = checkAccount();
 		if(result) {
 			//确认登录身份
 			if(sel_student.isSelected()) {
